@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>ulasan dapoer mama alika</title>
+     <!--buat icon-->
+    <link rel="icon" type="image/png" href="https://l.top4top.io/p_3405120jr0.png">
+    <link rel="apple-touch-icon" href="https://l.top4top.io/p_3405120jr0.png"><!--icon buat user ipong-->
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="https://l.top4top.io/p_3405120jr0.png"><!--icon tema gelap-->
+    <link rel="icon" media="(prefers-color-scheme: light)" href="https://l.top4top.io/p_3405120jr0.png"><!--icon tema terang-->
+    <!--akhir icon-->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script><!--buat icon-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .stars {
+      display: flex;
+      gap: 5px;
+      font-size: 50px;
+      cursor: pointer;
+    }
+    .star {
+      color: black; /* Bintang awalnya warna hitam */
+    }
+    .star.selected {
+      color: yellow; /* Bintang berubah jadi merah ketika dipilih */
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      margin-top: 15px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+      .social-icons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+          justify-content: center;
+}
+
+.icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+    text-align: center;
+  justify-content: center;
+}
+
+.icon a {
+  color: white;
+  font-size: 24px;
+  text-decoration: none;
+}
+
+      .text {
+          justify-content: center;
+          font-size: 25px;
+          text-align: center;
+          align-items:center;
+          display: flex;
+          }
+
+.icon.whatsapp {
+  background-color: #3b5998;
+}
+
+.icon.tiktok {
+  background-color: #55acee;
+}
+
+.icon.instagram {
+  background-color: #e4405f;
+}
+
+  </style>
+</head>
+<body>
+
+  <h2>Silahkan pilih bintang:</h2>
+  <div class="stars"> 
+    <span class="star" id="b1" data-value="1">&#9733;</span>
+    <span class="star" data-value="2">&#9733;</span>
+    <span class="star" data-value="3">&#9733;</span>
+    <span class="star" data-value="4">&#9733;</span>
+    <span class="star" data-value="5">&#9733;</span>
+  </div>
+  <h2>Nama:</h2>
+    <textarea id="nama" placeholder="silahkan tulis nama kamu disini"></textarea>
+    <h2>Saran/Kritik:</h2>
+  <textarea id="reviewText" placeholder="silahkan tulis ulasan/kritik kamu"></textarea>
+  <br>
+  <button onclick="kirimWhatsApp()">kirim</button>
+  <a href="index.html"><button>kembali</button></a>
+    <br><br>
+    <!-- Icon Medsos -->
+    <div class="text">
+        <h2>jangan lupa follow</h2><br></div>
+    <div class="social-icons" id="notif">
+  <div class="icon whatsapp"><a href="#"><i class="fab fa-whatsapp"></i></a></div>
+  <div class="icon tiktok"><a href="#"><i class="fab fa-tiktok"></i></a></div>
+  <div class="icon instagram"><a href="#"><i class="fab fa-instagram"></i></a></div>
+</div>
+
+  <script>
+    let selectedRating = 0;
+
+    document.querySelectorAll('.stars span').forEach(star => {
+      star.addEventListener('click', function() {
+        selectedRating = this.getAttribute('data-value');
+        // reset warna bintang
+        document.querySelectorAll('.stars span').forEach(s => s.classList.remove('selected'));
+        // tambahkan kelas 'selected' ke bintang yang dipilih
+        for (let i = 0; i < selectedRating; i++) {
+          document.querySelectorAll('.stars span')[i].classList.add('selected');
+        }
+      });
+    });
+
+    function kirimWhatsApp() {
+      let pesan = document.getElementById('reviewText').value;
+      let nama = document.getElementById('nama').value;
+      if (selectedRating === 0) {
+        alert('silahkan pilih bintang dulu ya');
+        return;
+      }
+      if (pesan.trim() === '') {
+        alert('tulis ulasan dulu ya');
+        return;
+      }
+      if (nama.trim() === '') {
+          alert('tulis nama dulunya');
+          return
+      }
+      let nomor = '62895391943722'; // ini akan kehubung ke wa
+      let url = `https://wa.me/${nomor}?text=*INFORMASI SARAN/RATING*%0Anama%20saya:%20${encodeURIComponent(nama)}%0Arating:%20${selectedRating}%20bintang%0Aulasan/saran:%20${encodeURIComponent(pesan)}`;
+      window.open(url, '_blank');
+    }
+
+      /*buat notif*/
+      document.getElementById("notif").addEventListener("click", function() {
+            alert("maaf fitur ini sedang di perbaiki")
+        });
+
+       document.getElementById("b1").addEventListener("click", function() {
+            alert("bang  udah bang")
+        });
+  </script>
+
+</body>
+</html>
