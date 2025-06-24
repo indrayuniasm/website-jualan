@@ -1,0 +1,54 @@
+<h1>Admin - Tambah Makanan</h1>
+<form action="/add-data" method="POST">
+  <input type="number" name="id" placeholder="ID Produk (angka unik)" required><br>
+  <input type="text" name="name" placeholder="Nama Makanan" required><br>
+  <input type="number" name="price" placeholder="Harga (tanpa Rp)" required><br>
+  <input type="text" name="image" placeholder="URL Gambar" required><br>
+  <button type="submit">Tambah Makanan</button>
+</form>
+<script>
+app.post('/add-data', (req, res) => {
+  const { id, name, price, image } = req.body;
+
+  const newProduct = `
+        <div class="product-card">
+            <img src="${image}" alt="${name}">
+            <div class="product-name" id="text">${name}<br><br></div>
+            <div class="product-price" id="text">Rp ${price}</div>
+            <button class="add-to-cart-btn" onclick="addToCart(${id}, '${name}', ${price}, '${image}')">Tambah ke Keranjang</button>
+        </div>
+  `;
+
+  fs.readFile('index.html', 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+      return res.send('Gagal membaca file.');
+    }
+
+    // cari posisi <h2>makanan</h2>
+    const categoryTitle = '<h2>makanan</h2>';
+    const productsDivStart = data.indexOf(categoryTitle);
+    if (productsDivStart === -1) {
+      return res.send('Kategori "makanan" tidak ditemukan.');
+    }
+
+    // cari posisi </div> penutup .products setelah h2
+    const productsDivClose = data.indexOf('</div>', productsDivStart);
+    if (productsDivClose === -1) {
+      return res.send('Penutup div .products tidak ditemukan.');
+    }
+
+    // sisipkan produk baru sebelum penutup </div>
+    const updatedData = data.slice(0, productsDivClose) + newProduct + data.slice(productsDivClose);
+
+    fs.writeFile('index.html', updatedData, 'utf8', (err) => {
+      if (err) {
+        console.error(err);
+        return res.send('Gagal menulis file.');
+      }
+      res.send('Produk berhasil ditambahkan.');
+    });
+  });
+});
+
+</script>
